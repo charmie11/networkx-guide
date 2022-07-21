@@ -37,7 +37,7 @@ WHILE Q is not empty:
             temp = dist[u] + length between u and n
             IF temp < dist[v] THEN
                 dist[v] = temp
-                prev[v] = unknown
+                prev[v] = u
             ENDIF
         ENDIF
     ENDFOR
