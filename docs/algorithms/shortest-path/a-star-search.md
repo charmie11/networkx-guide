@@ -39,13 +39,17 @@ Where:
 ```
 INIT LIST openList
 INIT LIST closedList
-startNode.f = 0
+
+startNode.g = 0
+startNode.h = distance from startNode to target
+startNode.f = startNode.g + startNode.h
 ADD startNode TO openList
+
 WHILE openList is not empty
-    currentNode = node with the least f value
+    currentNode = node in openList with the least f value
     REMOVE currentNode FROM openList
     ADD currentNode TO closedList
-    IF currentNode = goal THEN
+    IF currentNode = target THEN
         FINISHED
     ENDIF
     children = list of nodes adjacent to currentNode
@@ -54,15 +58,16 @@ WHILE openList is not empty
         IF child is in closedList
             CONTINUE
         ENDIF
-        child.g = currentNode.g + distance between child and current
-        child.h = distance from child to target
-        child.f = child.g + child.h
-        IF child.position is in the openList's nodes positions
-            IF the child.g is higher than the openList node's g
-                CONTINUE
-		ENDIF
-		  ENDIF
-        ADD the child TO the openList
+	
+	tmp = currentNode.g + distance between child and current
+	IF tmp < child.g
+            child.g = tmp
+            child.h = distance from child to target
+            child.f = child.g + child.h
+	    IF child not in openList
+	        Add child TO openList
+	    ENDIF
+	ENDIF
     ENDFOR
 ENDWHILE
 ```
