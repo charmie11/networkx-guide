@@ -43,7 +43,7 @@ startNode.f = 0
 ADD startNode TO openList
 WHILE openList is not empty
     currentNode = node with the least f value
-    REMOVE currentNode FROM penList
+    REMOVE currentNode FROM openList
     ADD currentNode TO closedList
     IF currentNode = goal THEN
         FINISHED
