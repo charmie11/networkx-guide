@@ -37,36 +37,33 @@ Where:
 * h is the estimate cost of transversal to the target node
 
 ```
-INIT LIST openList
-INIT LIST closedList
+INIT set of nodes Q
+INIT list dist_g
+INIT list dist_f
+INIT list prev
 
-startNode.g = 0
-startNode.h = distance from startNode to target
-startNode.f = startNode.g + startNode.h
-ADD startNode TO openList
+FOR EACH node n in graph
+    SET dist_g[n] TO infinity
+    SET dist_f[n] TO infinity
+    SET prev[n] TO unknown
+    ADD n TO Q
+ENDFOR
+dist_g[source] = 0
+dist_f[source] = h(source)
 
-WHILE openList is not empty
-    currentNode = node in openList with the least f value
-    REMOVE currentNode FROM openList
-    ADD currentNode TO closedList
-    IF currentNode = target THEN
-        FINISHED
+WHILE Q is not empty:
+    SET u TO node from Q with minimal dist_f[u]
+    IF u == target THEN
+        FINISH
     ENDIF
-    children = list of nodes adjacent to currentNode
 
-    FOR EACH child in children
-        IF child is in closedList
-            CONTINUE
-        ENDIF
-
-        tmp = currentNode.g + distance between child and current
-        IF tmp < child.g
-                child.g = tmp
-                child.h = distance from child to target
-                child.f = child.g + child.h
-            IF child not in openList
-                Add child TO openList
-            ENDIF
+    REMOVE u FROM Q
+    FOR EACH neighbor node n of u
+        temp = (dist_f[u] - h(u)) + length between u and n
+        IF temp < dist_g[n] THEN
+            dist_g[n] = temp
+            dist_f[n] = dist_g[n] + h(n)
+            prev[n] = u
         ENDIF
     ENDFOR
 ENDWHILE
@@ -78,7 +75,7 @@ ENDWHILE
 
 ### Method input
 
-The first input parameter of the method, G, is a NetworkX graph. 
+The first input parameter of the method, G, is a NetworkX graph.
 The second parameter, source, is the source node of the shortest path.
 The third parameter, target, is the target node of the shortest path.
 The fourth parameter, heuristic, is a function to evaluate the estimate of the distance from the a node to the target. The function takes two node arguments and must return a number.
@@ -90,7 +87,7 @@ The output of the method is a list of nodes.
 
 ### Example
 
-Using A\* search algorithm in Python allows us to use custom methods and function as heuristics. In the following example, we designed the distance heuristic which calculates geometrical distances between the points. 
+Using A\* search algorithm in Python allows us to use custom methods and function as heuristics. In the following example, we designed the distance heuristic which calculates geometrical distances between the points.
 
 ```python
 import networkx as nx
