@@ -31,11 +31,11 @@ Before starting with the pseudocode, we need to explain the node structure. Each
 
 `f(n) = g(n) + h(n)`
 
-Where: 
+Where:
 * f is cost of the transversal
 * g is the actual cost of transversal from the starting node
-* h is the estimate cost of transversal to the target node 
- 
+* h is the estimate cost of transversal to the target node
+
 ```
 INIT LIST openList
 INIT LIST closedList
@@ -53,21 +53,21 @@ WHILE openList is not empty
         FINISHED
     ENDIF
     children = list of nodes adjacent to currentNode
- 
+
     FOR EACH child in children
         IF child is in closedList
             CONTINUE
         ENDIF
-	
-	tmp = currentNode.g + distance between child and current
-	IF tmp < child.g
-            child.g = tmp
-            child.h = distance from child to target
-            child.f = child.g + child.h
-	    IF child not in openList
-	        Add child TO openList
-	    ENDIF
-	ENDIF
+
+        tmp = currentNode.g + distance between child and current
+        IF tmp < child.g
+                child.g = tmp
+                child.h = distance from child to target
+                child.f = child.g + child.h
+            IF child not in openList
+                Add child TO openList
+            ENDIF
+        ENDIF
     ENDFOR
 ENDWHILE
 ```
