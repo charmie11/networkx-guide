@@ -36,9 +36,9 @@ WHILE Q is not empty:
     FOR EACH neighbor node n of u
         IF n in Q THEN
             temp = dist[u] + length between u and n
-            IF temp < dist[v] THEN
-                dist[v] = temp
-                prev[v] = u
+            IF temp < dist[n] THEN
+                dist[n] = temp
+                prev[n] = u
             ENDIF
         ENDIF
     ENDFOR
