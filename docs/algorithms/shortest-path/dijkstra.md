@@ -4,15 +4,16 @@ title: Dijkstra’s algorithm
 sidebar_label: Dijkstra
 ---
 
-Dijkstra’s algorithm finds the shortest path between nodes in a graph. With the algorithm, you can find the shortest path from a starting node to all the other nods in the graph. 
+Dijkstra’s algorithm finds the shortest path between nodes in a graph. With the algorithm, you can find the shortest path from a starting node to all the other nods in the graph.
 
 The algorithm was designed by Dr Edsger Dijkstra, a Dutch computer scientist, in 1956. He designed the algorithm and implemented it for a slightly simplified transportation map of 64 cities in the Netherlands. In his own words, it was a 20-minute invention that is today one of the most important and well-known algorithms in the field of graph theory.
 
 ## How does it work?
 
-Dijkstra’s algorithm starts at the chosen node (also known as the source node). The algorithm keeps track of the currently known shortest path from each node to the source node. It updates the path values if it finds a shorter path. When the algorithm finds the shortest path between the source node and another node, that node is marked as “visited” and added to the path. This process continues until all of the nodes have been added to the path. The result of the algorithm is a path that connects the source node to all other nodes in the graph following the shortest path to each node.  
+Dijkstra’s algorithm starts at the chosen node (also known as the source node). The algorithm keeps track of the currently known shortest path from each node to the source node. It updates the path values if it finds a shorter path. When the algorithm finds the shortest path between the source node and another node, that node is marked as “visited” and added to the path. This process continues until all of the nodes have been added to the path. The result of the algorithm is a path that connects the source node to all other nodes in the graph following the shortest path to each node.
 
 ## The difference from the other shortest path algorithms
+
 Dijkstra’s algorithm can only work on graphs that have positive values on the edges. The result of the algorithm is a structure called the minimum spanning tree - a tree-like structure that connects the source node to every other node in the graph following the shortest path to each node.
 
 ## Pseudocode
@@ -67,17 +68,16 @@ In Python’s library, NetworkX implements Dijkstra’s algorithm as part of the
 import networkx as nx
 
 edges = [(1,2, {'weight':4}),
-        (1,3,{'weight':2}),
-        (2,3,{'weight':1}),
-        (2,4, {'weight':5}),
-        (3,4, {'weight':8}),
-        (3,5, {'weight':10}),
-        (4,5,{'weight':2}),
-        (4,6,{'weight':8}),
-        (5,6,{'weight':5})]
+         (1,3,{'weight':2}),
+         (2,3,{'weight':1}),
+         (2,4, {'weight':5}),
+         (3,4, {'weight':8}),
+         (3,5, {'weight':10}),
+         (4,5,{'weight':2}),
+         (4,6,{'weight':8}),
+         (5,6,{'weight':5})]
 edge_labels = {(1,2):4, (1,3):2, (2,3):1, (2,4):5, (3,4):8, (3,5):10, (4,5):2, (4,6):8, (5,6):5}
-   
-        
+
 G = nx.Graph()
 for i in range(1,7):
     G.add_node(i)
@@ -103,6 +103,6 @@ The output is:
 
 ```
 All paths from 1: {1: [1], 2: [1, 3, 2], 3: [1, 3], 4: [1, 3, 2, 4], 5: [1, 3, 2, 4, 5], 6: [1, 3, 2, 4, 5, 6]}
-Shortest path from 1 to 6: [1, 3, 2, 4, 5, 6] 
+Shortest path from 1 to 6: [1, 3, 2, 4, 5, 6]
 Length of the shortest path: 15
 ```
