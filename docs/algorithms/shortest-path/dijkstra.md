@@ -22,6 +22,7 @@ Dijkstra’s algorithm can only work on graphs that have positive values on the 
 INIT set of nodes Q
 INIT list dist
 INIT list prev
+INIT set visited
 
 FOR EACH node n in graph
     SET dist[n] TO infinity
@@ -33,8 +34,9 @@ dist[source] = 0
 WHILE Q is not empty:
     SET u TO node from Q with minimal dist[u]
     REMOVE u FROM Q
+    ADD u TO visited
     FOR EACH neighbor node n of u
-        IF n in Q THEN
+        IF n not in visited THEN
             temp = dist[u] + length between u and n
             IF temp < dist[n] THEN
                 dist[n] = temp

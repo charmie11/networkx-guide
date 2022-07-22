@@ -41,6 +41,7 @@ INIT set of nodes Q
 INIT list dist_g
 INIT list dist_f
 INIT list prev
+INIT set visited
 
 FOR EACH node n in graph
     SET dist_g[n] TO infinity
@@ -54,16 +55,19 @@ dist_f[source] = h(source)
 WHILE Q is not empty:
     SET u TO node from Q with minimal dist_f[u]
     IF u == target THEN
-        FINISH
+        BREAK
     ENDIF
+    ADD u TO visited
 
     REMOVE u FROM Q
     FOR EACH neighbor node n of u
-        temp = (dist_f[u] - h(u)) + length between u and n
-        IF temp < dist_g[n] THEN
-            dist_g[n] = temp
-            dist_f[n] = dist_g[n] + h(n)
-            prev[n] = u
+        IF n not in visited THEN
+            temp = (dist_f[u] - h(u)) + length between u and n
+            IF temp < dist_g[n] THEN
+                dist_g[n] = temp
+                dist_f[n] = dist_g[n] + h(n)
+                prev[n] = u
+            ENDIF
         ENDIF
     ENDFOR
 ENDWHILE
